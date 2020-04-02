@@ -1,1 +1,18 @@
-signup
+<form class="sign-form" #ngForm="ngForm" (ngSubmit)="submit($event)">
+    <div>
+      <input type="text" placeholder="email" [(ngModel)]="email" required/>
+    </div>
+    <div>
+      <input type="text" placeholder="password" [(ngModel)]="password" required/>
+    </div>
+    <div>
+      <input type="text" placeholder="confirm password" [(ngModel)]="confirmPassword" required/>
+    </div>
+    <div>
+      <button type="submit" class="btn" [disabled]="!ngForm.valid">Sign up</button>
+    </div>
+    <div class="error">
+    </div>
+    <div>
+    </div>
+  </form>

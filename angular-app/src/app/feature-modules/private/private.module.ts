@@ -1,9 +1,11 @@
-import { NgModule } from '@angular/core';
+import { NgModule } from '@angular/core'
 
-import { PrivateComponent } from './private.component';
+import { PrivateComponent } from './private.component'
+import { CoreModule } from '../../core-module/core.module'
 
 @NgModule({
   imports: [
+    CoreModule
   ],
   exports: [
     PrivateComponent

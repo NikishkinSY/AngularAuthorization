@@ -12,14 +12,14 @@ namespace WebApi.Controllers
         [HttpGet("public")]
         public IActionResult Public()
         {
-            return Content("Public");
+            return Json("Public");
         }
 
         [Authorize]
         [HttpGet("private")]
         public IActionResult Private()
         {
-            return Content("Private");
+            return Json("Private");
         }
     }
 }

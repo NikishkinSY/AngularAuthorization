@@ -16,7 +16,7 @@ namespace WebApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UsersController : ControllerBase
+    public class UsersController : Controller
     {
         private readonly IUserService _userService;
         private readonly IEmailService _emailService;
@@ -60,7 +60,7 @@ namespace WebApi.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
             
-            return Ok(new {
+            return Json(new {
                 Id = user.Id,
                 Email = user.Email,
                 Token = tokenString
@@ -73,17 +73,22 @@ namespace WebApi.Controllers
             var user = _mapper.Map<User>(userDto);
             var guid = _userService.GenerateConfirmationGuid();
             var link = $"{_appSettings.WebServer}/confirmation/{user.Email}/{guid}";
+
+            if (await _userService.CheckIfUserExistsAsync(user.Email))
+            {
+                throw new AppException(_appSettings.EmailIsTaken);
+            }
+
             await _emailService.SendEmailAsync(user.Email, "Confirm registration", $"<a href='{link}'>Click here</a>");
             await _userService.CreateAsync(user, userDto.Password, guid);
-            
-            return Ok(_appSettings.ConfirmationEmailSent);
+            return Json(_appSettings.ConfirmationEmailSent);
         }
         
         [HttpGet("confirm")]
         public async Task<IActionResult> ConfirmRegistration(string email, Guid guid)
         {
             await _userService.ConfirmRegistrationAsync(email, guid);
-            return Ok(_appSettings.EmailIsConfirmed);
+            return Json(_appSettings.EmailIsConfirmed);
         }
     }
 }

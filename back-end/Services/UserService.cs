@@ -172,5 +172,10 @@ namespace WebApi.Services
 
             return true;
         }
+
+        public async Task<bool> CheckIfUserExistsAsync(string email)
+        {
+            return await _context.Users.AnyAsync(x => x.Email.Equals(email, StringComparison.InvariantCultureIgnoreCase));
+        }
     }
 }

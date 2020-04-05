@@ -18,5 +18,7 @@ namespace WebApi.Services
         Guid GenerateConfirmationGuid();
         void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt);
         bool VerifyPasswordHash(string password, byte[] storedHash, byte[] storedSalt);
+
+        Task<bool> CheckIfUserExistsAsync(string email);
     }
 }

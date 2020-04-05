@@ -1,11 +1,13 @@
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core'
+import { FormsModule } from '@angular/forms'
 
-import { SigninComponent } from './signin.component';
+import { SigninComponent } from './signin.component'
+import { CoreModule } from '../../core-module/core.module'
 
 @NgModule({
   imports: [
-    FormsModule
+    FormsModule,
+    CoreModule
   ],
   exports: [
     SigninComponent

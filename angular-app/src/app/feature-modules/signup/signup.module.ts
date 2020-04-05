@@ -1,11 +1,13 @@
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core'
+import { FormsModule } from '@angular/forms'
 
-import { SignupComponent } from './signup.component';
+import { SignupComponent } from './signup.component'
+import { CoreModule } from '../../core-module/core.module'
 
 @NgModule({
   imports: [
-    FormsModule
+    FormsModule,
+    CoreModule
   ],
   exports: [
     SignupComponent

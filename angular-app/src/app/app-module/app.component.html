@@ -4,10 +4,21 @@
       <a routerLink = "/public" class="btn btn-link header-link">Public</a>
       <a routerLink = "/private" class="btn btn-link header-link">Private</a>
     </div>
-    <div class="header-sign">
-      <a routerLink = "/signup" class="btn btn-link header-link">Signup</a>
-      <a routerLink = "/signin" class="btn btn-link header-link">Signin</a>
-    </div>
+    <div *ngIf="login; then isAuthorizedBlock else isNotAuthorizedBlock"></div>
+    <ng-template #isNotAuthorizedBlock>
+      <div class="header-sign">
+        <a routerLink = "/signup" class="btn btn-link header-link">Signup</a>
+        <a routerLink = "/signin" class="btn btn-link header-link">Signin</a>
+      </div>
+    </ng-template>
+    <ng-template #isAuthorizedBlock> 
+      <div class="header-sign">
+        <div class="header-name">
+          <label class="label">{{login}}</label>
+        </div>
+        <a routerLink="/" (click)="signOut()" class="btn btn-link header-link">Signout</a>  
+      </div>
+    </ng-template>
   </div>
   <hr />
   <div class="body">

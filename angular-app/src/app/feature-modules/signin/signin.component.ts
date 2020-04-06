@@ -28,7 +28,7 @@ export class SigninComponent {
           form.reset()
           this.cookieService.set('login', response.email)
           this.cookieService.set('token', response.token)
-          this.router.navigate(['private']);
+          this.router.navigate(['private'])
         },
         error: response => { 
           console.log(response) 

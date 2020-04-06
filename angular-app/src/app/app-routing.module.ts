@@ -12,7 +12,8 @@ const routes: Routes = [
   {path: 'private', component: PrivateComponent},
   {path: 'signin', component: SigninComponent},
   {path: 'signup', component: SignupComponent},
-  {path: 'confirmation/:email/:guid', component: ConfirmationComponent}
+  {path: 'confirmation/:email/:guid', component: ConfirmationComponent},
+  {path: '**', component: PublicComponent}
 ]
 
 @NgModule({

@@ -12,8 +12,14 @@ export class PublicComponent implements OnInit {
   constructor(private apiService: ApiService) {}
 
   ngOnInit() {
-    this.apiService.getPublic().subscribe(
-      data => this.data=data,
-      error => this.error=error);
+    this.apiService.getPublic().subscribe({
+        next: (data: string) => { 
+          this.data=data
+        },
+        error: response => { 
+          console.log(response) 
+          this.error = response.error
+        }
+      });
   }
 }

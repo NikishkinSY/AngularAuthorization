@@ -1,4 +1,5 @@
 import { Component } from '@angular/core'
+import { CookieService } from 'ngx-cookie-service'
 
 import { ApiService } from 'src/app/core-module/api.service'
 
@@ -8,10 +9,20 @@ import { ApiService } from 'src/app/core-module/api.service'
 })
 export class PrivateComponent {
   data: Object
+  error: Object
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService, private cookieService: CookieService) {}
 
   ngOnInit() {
-    this.apiService.getPrivate().subscribe(data => this.data=data)
+    let token = this.cookieService.get('token')
+    this.apiService.getPrivate(token).subscribe({
+      next: (data: string) => { 
+        this.data=data
+      },
+      error: response => { 
+        console.log(response) 
+        this.error = response.error
+      }
+    })
   }
 }

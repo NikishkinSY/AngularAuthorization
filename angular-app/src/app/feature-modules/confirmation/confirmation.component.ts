@@ -13,7 +13,9 @@ export class ConfirmationComponent implements OnInit {
   public error: string
   public info: string
 
-  constructor(private apiService: ApiService, private actRoute: ActivatedRoute) {
+  constructor(
+      private apiService: ApiService, 
+      private actRoute: ActivatedRoute) {
     this.email = this.actRoute.snapshot.params.email;
     this.guid = this.actRoute.snapshot.params.guid;
   }
@@ -21,7 +23,7 @@ export class ConfirmationComponent implements OnInit {
   ngOnInit() {
     this.apiService.confirmation(this.email, this.guid).subscribe({
       next: (response: string) => { 
-        console.log(response) 
+        console.log(response)
         this.info = response
       },
       error: response => { 

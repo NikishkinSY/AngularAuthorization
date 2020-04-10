@@ -1,32 +1,20 @@
 import { Component } from '@angular/core'
-import { CookieService } from 'ngx-cookie-service'
 import { Router } from '@angular/router'
-import { OnInit } from '@angular/core'
+
+import { DataService } from '../core-module/data.service'
 
 @Component({
   selector: 'app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
-  login: string
-
+export class AppComponent {
   constructor(
-    private cookieService: CookieService,
-    private router: Router) {}
-
-  ngOnInit() {
-    let newLogin = this.cookieService.get('login')
-    let isLoginChanged = this.login === newLogin
-    this.login = newLogin
-    if (isLoginChanged) {
-      location.reload()
-    }
-  }
+    private router: Router,
+    public dataService: DataService) {}
 
   signOut() {
-    this.cookieService.delete('login')
-    this.cookieService.delete('token')
+    this.dataService.delete()
     this.router.navigate(['/'])
   }
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core'
 import { CookieService } from 'ngx-cookie-service'
 
 import { ApiService } from 'src/app/core-module/api.service'
+import { InfoService } from 'src/app/core-module/info.service'
 
 @Component({
   selector: 'app-private',
@@ -9,19 +10,26 @@ import { ApiService } from 'src/app/core-module/api.service'
 })
 export class PrivateComponent {
   data: Object
-  error: Object
 
-  constructor(private apiService: ApiService, private cookieService: CookieService) {}
+  constructor(
+    private apiService: ApiService, 
+    private cookieService: CookieService,
+    public infoService: InfoService) {}
 
   ngOnInit() {
+    this.infoService.setInfo('test')
     let token = this.cookieService.get('token')
+    if (!token) {
+      this.infoService.setError('Unauthorized')
+    }
+
     this.apiService.getPrivate(token).subscribe({
       next: (data: string) => { 
-        this.data=data
+        this.infoService.clear()
+        this.data = data
       },
       error: response => { 
-        console.log(response) 
-        this.error = response.error
+        this.infoService.setError('Unauthorized')   
       }
     })
   }

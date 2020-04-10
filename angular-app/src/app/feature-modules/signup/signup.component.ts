@@ -1,9 +1,8 @@
 import { Component } from '@angular/core'
 import { NgForm } from '@angular/forms'
-import { catchError, map, tap } from 'rxjs/operators'
-import {Observable, of} from 'rxjs'
 
 import { ApiService } from 'src/app/core-module/api.service'
+import { InfoService } from 'src/app/core-module/info.service'
 
 @Component({
   selector: 'app-signup',
@@ -15,28 +14,25 @@ export class SignupComponent {
   confirmPassword: string
 
   data: object
-  public error: string
-  public info: string
 
-
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private apiService: ApiService,
+    public infoService: InfoService) {}
 
   submit(form: NgForm) {
     if (form.value.password !== form.value.confirmPassword) {
-      this.info = 'Passwords don`t match'
+      this.infoService.setError('Passwords don`t match')
       return
     }
 
     this.apiService.signup(form.value.email, form.value.password)
       .subscribe({
         next: (result: string) => { 
-          console.log(result) 
           form.reset()
-          this.info = result
+          this.infoService.setInfo(result)
         },
         error: response => { 
-          console.log(response) 
-          this.error = response.error
+          this.infoService.setErrorResponse(response)
         }
       });
   } 

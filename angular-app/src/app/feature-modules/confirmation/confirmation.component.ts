@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core'
-import { ApiService } from 'src/app/core-module/api.service'
 import { ActivatedRoute } from '@angular/router'
+
+import { ApiService } from '../../core-module/api.service'
+import { InfoService } from '../../core-module/info.service'
 
 @Component({
   selector: 'app-public',
@@ -10,12 +12,10 @@ export class ConfirmationComponent implements OnInit {
   email: string
   guid: string
 
-  public error: string
-  public info: string
-
   constructor(
       private apiService: ApiService, 
-      private actRoute: ActivatedRoute) {
+      private actRoute: ActivatedRoute,
+      private infoService: InfoService) {
     this.email = this.actRoute.snapshot.params.email;
     this.guid = this.actRoute.snapshot.params.guid;
   }
@@ -24,11 +24,11 @@ export class ConfirmationComponent implements OnInit {
     this.apiService.confirmation(this.email, this.guid).subscribe({
       next: (response: string) => { 
         console.log(response)
-        this.info = response
+        this.infoService.setInfo(response)
       },
       error: response => { 
         console.log(response) 
-        this.error = response.error
+        this.infoService.setError(response.error)
       }
     });
   }

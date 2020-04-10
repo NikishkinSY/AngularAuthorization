@@ -4,7 +4,7 @@
       <a routerLink = "/public" class="btn btn-link header-link">Public</a>
       <a routerLink = "/private" class="btn btn-link header-link">Private</a>
     </div>
-    <div *ngIf="login; then isAuthorizedBlock else isNotAuthorizedBlock"></div>
+    <div *ngIf="dataService.login; then isAuthorizedBlock else isNotAuthorizedBlock"></div>
     <ng-template #isNotAuthorizedBlock>
       <div class="header-sign">
         <a routerLink = "/signup" class="btn btn-link header-link">Signup</a>
@@ -14,7 +14,7 @@
     <ng-template #isAuthorizedBlock> 
       <div class="header-sign">
         <div class="header-name">
-          <label class="label">{{login}}</label>
+          <label class="label">{{dataService.login}}</label>
         </div>
         <a routerLink="/" (click)="signOut()" class="btn btn-link header-link">Signout</a>  
       </div>

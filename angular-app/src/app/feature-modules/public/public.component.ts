@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core'
+
 import { ApiService } from 'src/app/core-module/api.service'
+import { InfoService } from 'src/app/core-module/info.service'
 
 @Component({
   selector: 'app-public',
@@ -7,18 +9,19 @@ import { ApiService } from 'src/app/core-module/api.service'
 })
 export class PublicComponent implements OnInit {
   data: Object
-  error: Object
 
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private apiService: ApiService,
+    public infoService: InfoService) {}
 
   ngOnInit() {
     this.apiService.getPublic().subscribe({
         next: (data: string) => { 
+          this.infoService.clear()
           this.data=data
         },
         error: response => { 
-          console.log(response) 
-          this.error = response.error
+          this.infoService.setErrorResponse(response)  
         }
       });
   }

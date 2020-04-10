@@ -24,6 +24,7 @@ export class SigninComponent {
     this.apiService.signin(form.value.email, form.value.password)
       .subscribe({
         next: (response: IUser) => {
+          this.infoService.clear()
           form.reset()
           this.dataService.set(response.email, response.token)
           this.router.navigate(['private'])

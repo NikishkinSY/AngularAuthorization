@@ -1,15 +1,16 @@
 import { Component } from '@angular/core'
 import { CookieService } from 'ngx-cookie-service'
 
-import { ApiService } from 'src/app/core-module/api.service'
-import { InfoService } from 'src/app/core-module/info.service'
+import { ApiService } from '../../core-module/api.service'
+import { InfoService } from '../../core-module/info.service'
+import { IHuman } from '../../core-module/models/human.model'
 
 @Component({
   selector: 'app-private',
   templateUrl: './private.component.html'
 })
 export class PrivateComponent {
-  data: Object
+  humans: IHuman[] = []
 
   constructor(
     private apiService: ApiService, 
@@ -23,10 +24,10 @@ export class PrivateComponent {
       this.infoService.setError('Unauthorized')
     }
 
-    this.apiService.getPrivate(token).subscribe({
-      next: (data: string) => { 
+    this.apiService.getHumans(token).subscribe({
+      next: (data: IHuman[]) => { 
         this.infoService.clear()
-        this.data = data
+        this.humans = data
       },
       error: response => { 
         this.infoService.setError('Unauthorized')   

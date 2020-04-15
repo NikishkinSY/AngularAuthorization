@@ -1,6 +1,11 @@
 <div>
-  <div>
-    {{data}}
+  
+  <div *ngFor="let human of humans">
+    {{human.name}} - {{human.birth | date: "yyyy"}}
   </div>
+  <div *ngIf="!humans.length">
+    There is no humans
+  </div>
+  
   <app-info></app-info>
 </div>

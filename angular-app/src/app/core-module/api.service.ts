@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core'
 import {HttpClient, HttpHeaders} from '@angular/common/http'
 import {Observable, of} from 'rxjs'
-import { catchError, map, tap } from 'rxjs/operators'
 
 import {IUser} from './models/user.model'
+import {IHuman} from './models/human.model'
 
 @Injectable()
 export class ApiService {
@@ -40,6 +40,16 @@ export class ApiService {
 		const url = this.baseUrl + 'users/confirm?email=' + email + '&guid=' + guid
 		return this.http.get(url)
 	} 
+
+	getHumans(token: string): Observable<IHuman[]> {
+		const url = this.baseUrl + 'humans/get'
+		const httpOptions = {
+			headers: new HttpHeaders({
+				'authorization': 'Bearer ' + token
+			})
+		};
+		return this.http.get<IHuman[]>(url, httpOptions) 
+	}
 
 	private handleError<T> (operation = 'operation', result?: T) {
 		return (error: any): Observable<T> => {

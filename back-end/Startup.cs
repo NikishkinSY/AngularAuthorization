@@ -78,6 +78,7 @@ namespace WebApi
             // configure DI for application services
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IHumanService, HumanService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -94,6 +95,10 @@ namespace WebApi
             app.UseMvc();
 
             loggerFactory.AddFile("Logs/{Date}.txt");
+
+            using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            using (var context = scope.ServiceProvider.GetService<DataContext>())
+                context.Database.EnsureCreated();
         }
     }
 }

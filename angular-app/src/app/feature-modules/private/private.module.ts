@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 
-import { PrivateComponent, NgbdSortableHeader } from './private.component'
+import { PrivateComponent } from './private.component'
 import { CoreModule } from '../../core-module/core.module'
+import { NgbdSortableHeader } from '../../core-module/sortable.table'
 
 @NgModule({
   imports: [

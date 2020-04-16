@@ -1,11 +1,23 @@
 <div>
-  
-  <div *ngFor="let human of humans">
-    {{human.name}} - {{human.birth | date: "yyyy"}}
+  <div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col" sortable="id" (sort)="onSort($event)">#</th>
+          <th scope="col" sortable="name" (sort)="onSort($event)">Name</th>
+          <th scope="col" sortable="birth" (sort)="onSort($event)">Birth</th>
+        </tr>
+      </thead>
+      <tr *ngFor="let human of humans">
+        <th scope="row">{{ human.id }}</th>
+        <td>{{human.name}}</td>
+        <td>{{human.birth | date: "yyyy"}}</td>
+      </tr>
+    </table>
   </div>
+  
   <div *ngIf="!humans.length">
     There is no humans
   </div>
-  
   <app-info></app-info>
 </div>

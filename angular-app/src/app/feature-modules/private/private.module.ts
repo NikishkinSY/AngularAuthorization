@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 
-import { PrivateComponent } from './private.component'
+import { PrivateComponent, NgbdSortableHeader } from './private.component'
 import { CoreModule } from '../../core-module/core.module'
 
 @NgModule({
@@ -13,7 +13,7 @@ import { CoreModule } from '../../core-module/core.module'
     PrivateComponent
   ],
   declarations: [
-    PrivateComponent
+    PrivateComponent, NgbdSortableHeader
   ],
   providers: [
   ],

@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
 import { HttpClientModule } from '@angular/common/http'
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
 import { AppRoutingModule } from '../app-routing.module'
 import { SignupModule } from '../feature-modules/signup/signup.module'
@@ -23,7 +24,8 @@ import { AppComponent } from './app.component'
     SigninModule,
     PublicModule,
     PrivateModule,
-    ConfirmationModule
+    ConfirmationModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

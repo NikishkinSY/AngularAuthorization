@@ -17,6 +17,11 @@ export class DataService {
     this.token = this.cookieService.get('token')
   }
 
+  isAuthorized() {
+    this.ngOnInit()
+    return this.token
+  }
+
   set(login: string, token: string) {
     this.login = login
     this.token = token
